@@ -31,3 +31,6 @@ build/
 .vscode/
 
 src/main/resources/keys.properties
+.mvn
+mvnw
+mvnw.cmd
