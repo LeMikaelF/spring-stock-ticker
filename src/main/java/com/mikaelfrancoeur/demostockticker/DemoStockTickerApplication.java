@@ -29,8 +29,6 @@ public class DemoStockTickerApplication {
     }
 
 
-
-
     @Bean
     RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder.build();
