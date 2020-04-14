@@ -17,19 +17,9 @@ public class DemoStockTickerApplication {
 
     Logger logger = LoggerFactory.getLogger(DemoStockTickerApplication.class);
 
-    public DemoStockTickerApplication() {
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(DemoStockTickerApplication.class, args);
     }
-
-
-    @Bean
-    RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder.build();
-    }
-
 
     @Bean
     CommandLineRunner commandLineRunner(ApplicationContext applicationContext, StockClient stockClient) {
