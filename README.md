@@ -13,6 +13,7 @@ Demo application using Spring and a REST service to track stock prices.
 # TODO
 
 - [ ] Map DTO to domain object
+- [ ] Encrypt API key and move it to application.properties file
 - [ ] Refactor client and UI into separate Spring modules
 - [ ] Allow choosing stock symbol
 - [ ] Allow multiple stocks
