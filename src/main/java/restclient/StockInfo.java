@@ -1,4 +1,4 @@
-package com.mikaelfrancoeur.demostockticker;
+package restclient;
 
 public class StockInfo {
     private String symbol;

@@ -1,4 +1,4 @@
-package com.mikaelfrancoeur.demostockticker;
+package restclient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class StockClient {
         return restTemplateBuilder.build();
     }
 
-    StockResponse getStockInfo(String symbol) {
+    public StockResponse getStockInfo(String symbol) {
         logger.info("URL from properties and injection: " + getStockUrl);
         return restTemplate.getForEntity(getStockUrl, StockResponse.class, symbol, key).getBody();
     }

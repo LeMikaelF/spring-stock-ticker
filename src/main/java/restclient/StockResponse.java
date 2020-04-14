@@ -1,4 +1,4 @@
-package com.mikaelfrancoeur.demostockticker;
+package restclient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
