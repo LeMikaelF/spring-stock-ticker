@@ -14,34 +14,33 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@PropertySource(value="keys.properties")
+@PropertySource(value = "keys.properties")
 public class DemoStockTickerApplication {
 
+    final Environment env;
     Logger logger = LoggerFactory.getLogger(DemoStockTickerApplication.class);
 
-    @Autowired
-    Environment env;
+    public DemoStockTickerApplication(Environment env) {
+        this.env = env;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(DemoStockTickerApplication.class, args);
     }
+
+
+
 
     @Bean
     RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder.build();
     }
 
+
     @Bean
-    CommandLineRunner commandLineRunner(RestTemplate restTemplate, ApplicationContext applicationContext) {
+    CommandLineRunner commandLineRunner(ApplicationContext applicationContext, StockClient stockClient) {
         return (args) -> {
-            //String url = String.format("https://finnhub.io/api/v1/quote?symbol=TSLA&token=%s", env.getProperty("FinnHubKey=bqag7d7rh5r8t7qn9gb0"));
-            //TODO change secret for property
-            String url = "https://finnhub.io/api/v1/quote?symbol=TSLA&token=bqag7d7rh5r8t7qn9gb0";
-            StockResponse stockResponse = restTemplate.getForEntity(url, StockResponse.class).getBody();
-            if (stockResponse == null) {
-                return;
-            }
-            logger.info(stockResponse.toString());
+            logger.info(stockClient.getStockInfo("TSLA").toString());
             SpringApplication.exit(applicationContext);
         };
 
