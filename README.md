@@ -1,4 +1,4 @@
-#Stock Ticker
+# Stock Ticker
 
 **Technologies used**
 - Spring Boot (framework)
@@ -10,7 +10,7 @@ Demo application using Spring and a REST service to track stock prices.
 
 ![screenshot](img/Screenshot.png)
 
-#TODO
+# TODO
 
 - [ ] Map DTO to domain object
 - [ ] Refactor client and UI into separate Spring modules
