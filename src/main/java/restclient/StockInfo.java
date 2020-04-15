@@ -9,6 +9,12 @@ public class StockInfo {
         this.current = current;
     }
 
+    public StockInfo(String symbol, StockResponse response) {
+        this.symbol = symbol;
+        this.current = response.getC();
+    }
+
+
     public String getSymbol() {
         return symbol;
     }

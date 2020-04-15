@@ -3,7 +3,7 @@ package restclient;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class StockResponse{
+class StockResponse{
 	private double C;
 	private int pc;
 	private int T;
@@ -61,14 +61,14 @@ public class StockResponse{
 
 	@Override
  	public String toString(){
-		return 
-			"StockResponse{" + 
+		return
+			"StockResponse{" +
 			"c = '" + C + '\'' +
-			",pc = '" + pc + '\'' + 
-			",t = '" + T + '\'' + 
-			",h = '" + H + '\'' + 
-			",l = '" + L + '\'' + 
-			",o = '" + O + '\'' + 
+			",pc = '" + pc + '\'' +
+			",t = '" + T + '\'' +
+			",h = '" + H + '\'' +
+			",l = '" + L + '\'' +
+			",o = '" + O + '\'' +
 			"}";
 		}
 }

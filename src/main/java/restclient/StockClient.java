@@ -30,9 +30,9 @@ public class StockClient {
         return restTemplateBuilder.build();
     }
 
-    public StockResponse getStockInfo(String symbol) {
-        logger.info("URL from properties and injection: " + getStockUrl);
-        return restTemplate.getForEntity(getStockUrl, StockResponse.class, symbol, key).getBody();
+    public StockInfo getStockInfo(String symbol) {
+        StockResponse response = restTemplate.getForEntity(getStockUrl, StockResponse.class, symbol, key).getBody();
+        return new StockInfo(symbol, response);
     }
 
 }

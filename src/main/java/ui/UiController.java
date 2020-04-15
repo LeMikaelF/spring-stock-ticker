@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import restclient.StockClient;
-import restclient.StockResponse;
+import restclient.StockInfo;
 
 @Component
 @FxmlView("ui.fxml")
@@ -25,9 +25,8 @@ public class UiController {
     }
 
     public void getStock(ActionEvent actionEvent) {
-        logger.info("-----dans getStock------");
-        StockResponse response = stockClient.getStockInfo("TSLA");
-        setPriceOnLabel(priceLabel, response.getC());
+        StockInfo response = stockClient.getStockInfo("TSLA");
+        setPriceOnLabel(priceLabel, response.getCurrent());
     }
 
     private void setPriceOnLabel(Label label, double price) {
