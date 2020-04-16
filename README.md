@@ -12,11 +12,5 @@ Demo application using Spring and a REST service to track stock prices.
 
 # TODO
 
-- [X] Map DTO to domain object
-- [ ] Refactor client and UI into separate Spring modules
-- [ ] Allow choosing stock symbol
-- [ ] Allow multiple stocks
-  - Add tracked stock
-  - Remove tracked stock
-  - Expandable UI
+- [ ] If a stock symbol is invalid, still update other stocks.
 - [ ] Make UI prettier

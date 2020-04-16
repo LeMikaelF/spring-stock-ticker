@@ -16,7 +16,7 @@ import restclient.StockClient;
 import ui.JavaFxApplication;
 import ui.UiController;
 
-@SpringBootApplication(scanBasePackageClasses = {StockClient.class, UiController.class})
+@SpringBootApplication(scanBasePackageClasses = {StockClient.class, UiController.class, JavaFxApplication.class})
 @PropertySource(value = "keys.properties")
 public class DemoStockTickerApplication {
 

@@ -3,13 +3,14 @@ package ui;
 import com.mikaelfrancoeur.demostockticker.DemoStockTickerApplication;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JavaFxApplication extends Application {
 
     private ConfigurableApplicationContext applicationContext;
