@@ -13,4 +13,5 @@ Demo application using Spring and a REST service to track stock prices.
 # TODO
 
 - [ ] If a stock symbol is invalid, still update other stocks.
+- [ ] Make REST calls on separate threads.
 - [ ] Make UI prettier
