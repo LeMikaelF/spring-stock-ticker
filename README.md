@@ -14,4 +14,5 @@ Demo application using Spring and a REST service to track stock prices.
 
 - [ ] If a stock symbol is invalid, still update other stocks.
 - [ ] Make REST calls on separate threads.
+- [ ] Save/load stock selection with JPA and SQLite.
 - [ ] Make UI prettier
