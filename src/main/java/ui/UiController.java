@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 import restclient.StockClient;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Component
 @FxmlView("ui.fxml")
@@ -66,8 +65,9 @@ public class UiController {
     public void updateStocks() {
         logger.info(String.valueOf(singleStockControllers.size()));
         singleStockControllers.forEach(singleStockController -> {
-            Optional.ofNullable(stockClient.getStockInfo(singleStockController.getSymbol()))
-                    .ifPresent(stockInfo -> singleStockController.setSymbol(String.valueOf(stockInfo.getCurrent())));
+            stockClient.getStockInfo(singleStockController.getSymbol())
+                    .ifPresent(stockInfo -> singleStockController
+                            .setCurrentPrice(Double.valueOf(String.valueOf(stockInfo.getCurrent()))));
         });
     }
 }

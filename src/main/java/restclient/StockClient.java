@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 @Component
 public class StockClient {
     @Autowired
@@ -30,9 +32,9 @@ public class StockClient {
         return restTemplateBuilder.build();
     }
 
-    public StockInfo getStockInfo(String symbol) {
-        StockResponse response = restTemplate.getForEntity(getStockUrl, StockResponse.class, symbol, key).getBody();
-        return new StockInfo(symbol, response);
+    public Optional<StockInfo> getStockInfo(String symbol) {
+        return Optional.ofNullable(restTemplate.getForEntity(getStockUrl, StockResponse.class, symbol, key).getBody())
+                .map(stockResponse -> new StockInfo(symbol, stockResponse));
     }
 
 }
