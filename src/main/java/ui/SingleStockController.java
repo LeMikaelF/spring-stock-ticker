@@ -8,9 +8,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Component
@@ -57,8 +59,8 @@ public class SingleStockController {
         return textFieldSymbol.getText();
     }
 
-    void setCurrentPrice(Double price) {
-        labelPrice.setText(String.format("%.2f", price));
+    void setCurrentPrice(@Nullable Double price) {
+        labelPrice.setText(Optional.ofNullable(price).map(d -> String.format("%.2f", d)).orElse("N/A"));
     }
 
     void addToParent(Pane parent) {

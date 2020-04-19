@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import restclient.StockClient;
+import restclient.StockInfo;
 
 import java.util.ArrayList;
 
@@ -65,9 +66,8 @@ public class UiController {
     public void updateStocks() {
         logger.info(String.valueOf(singleStockControllers.size()));
         singleStockControllers.forEach(singleStockController -> {
-            stockClient.getStockInfo(singleStockController.getSymbol())
-                    .ifPresent(stockInfo -> singleStockController
-                            .setCurrentPrice(Double.valueOf(String.valueOf(stockInfo.getCurrent()))));
+            singleStockController.setCurrentPrice(
+            stockClient.getStockInfo(singleStockController.getSymbol()).map(StockInfo::getCurrent).orElse(null));
         });
     }
 }
