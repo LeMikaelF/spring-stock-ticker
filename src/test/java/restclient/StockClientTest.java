@@ -7,13 +7,17 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @SpringBootTest(classes = {DemoStockTickerApplication.class})
@@ -41,10 +45,11 @@ class StockClientTest {
     }
 
     @Test
-    void shortCircuitsToEmptyOptionalIfNonAlphaCharsInSymbol() {
-        mockRestServiceServer.expect(ExpectedCount.never(), requestTo(MatchesPattern.matchesPattern(".*")));
-        stockClient.getStockInfo("12ABC");
-        Assertions.assertDoesNotThrow(mockRestServiceServer::verify);
+    void returnsEmptyOptionalOnServerFailure(){
+        mockRestServiceServer.expect(ExpectedCount.once(), requestTo(MatchesPattern.matchesPattern(".*"))).andRespond(withServerError());
+        Optional<StockInfo> stockInfo = stockClient.getStockInfo("12321ABC");
+        Assertions.assertEquals(Optional.empty(), stockInfo);
+        Assertions.assertDoesNotThrow(() -> mockRestServiceServer.verify());
     }
 
     @Test

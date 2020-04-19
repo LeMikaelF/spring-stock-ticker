@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
@@ -33,15 +34,17 @@ public class StockClient {
     }
 
     public Optional<StockInfo> getStockInfo(String symbol) {
-        if(symbol.chars().anyMatch(c -> !Character.isAlphabetic(c))) {
-            return Optional.empty();
-        }
         if (symbol.isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.ofNullable(restTemplate.getForEntity(getStockUrl, StockResponse.class, symbol, key).getBody())
-                .map(stockResponse -> new StockInfo(symbol, stockResponse));
+        try {
+            return Optional.ofNullable(restTemplate.getForEntity(getStockUrl, StockResponse.class, symbol, key).getBody())
+                    .map(stockResponse -> new StockInfo(symbol, stockResponse));
+        } catch (RestClientException e) {
+            logger.error("Exception in StockClient::getStock — {}", e.getMessage());
+            return Optional.empty();
+        }
     }
 
 }
