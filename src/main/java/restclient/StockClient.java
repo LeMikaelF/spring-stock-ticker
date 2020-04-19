@@ -33,6 +33,13 @@ public class StockClient {
     }
 
     public Optional<StockInfo> getStockInfo(String symbol) {
+        if(symbol.chars().anyMatch(c -> !Character.isAlphabetic(c))) {
+            return Optional.empty();
+        }
+        if (symbol.isEmpty()) {
+            return Optional.empty();
+        }
+
         return Optional.ofNullable(restTemplate.getForEntity(getStockUrl, StockResponse.class, symbol, key).getBody())
                 .map(stockResponse -> new StockInfo(symbol, stockResponse));
     }
