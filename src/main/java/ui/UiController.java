@@ -3,6 +3,7 @@ package ui;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -66,8 +67,14 @@ public class UiController {
     public void updateStocks() {
         logger.info(String.valueOf(singleStockControllers.size()));
         singleStockControllers.forEach(singleStockController -> {
-            singleStockController.setCurrentPrice(
-            stockClient.getStockInfo(singleStockController.getSymbol()).map(StockInfo::getCurrent).orElse(null));
+            Task<Double> task = new Task<Double>() {
+                @Override
+                protected Double call() throws Exception {
+                    return stockClient.getStockInfo(singleStockController.getSymbol()).map(StockInfo::getCurrent).orElse(null);
+                }
+            };
+            task.setOnSucceeded(event -> singleStockController.setCurrentPrice(task.getValue()));
+            new Thread(task).start();
         });
     }
 }
