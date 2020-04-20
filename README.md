@@ -9,7 +9,7 @@
 - JUnit 5
 - Travis CI
 
-
+**Other**
 - REST API ([finnhub.io](https://finnhub.io/))
 - MockRestServiceServer
 - Asynchronous UI updates
@@ -18,3 +18,7 @@
 Demo application using Spring and a REST service to track stock prices.
 
 ![screenshot](img/Screenshot.png)
+
+**TODO**
+
+- [ ] Convert unit tests to property-based testing
