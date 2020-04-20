@@ -3,20 +3,15 @@ package restclient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mikaelfrancoeur.demostockticker.DemoStockTickerApplication;
 import org.hamcrest.text.MatchesPattern;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -37,8 +32,8 @@ class StockClientTest {
 
     private MockRestServiceServer mockRestServiceServer;
 
-    @BeforeAll
-    void beforeAll() {
+    @BeforeEach
+    void beforeEach() {
         mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();
     }
 
@@ -50,9 +45,9 @@ class StockClientTest {
     }
 
     @Test
-    void returnsEmptyOptionalOnServerFailure(){
+    void returnsEmptyOptionalOnServerFailure() {
         mockRestServiceServer.expect(ExpectedCount.once(), requestTo(MatchesPattern.matchesPattern(".*"))).andRespond(withServerError());
-        Optional<StockInfo> stockInfo = stockClient.getStockInfo("12321ABC");
+        Optional<StockInfo> stockInfo = stockClient.getStockInfo("SYMBOL");
         Assertions.assertEquals(Optional.empty(), stockInfo);
         Assertions.assertDoesNotThrow(() -> mockRestServiceServer.verify());
     }
@@ -60,7 +55,7 @@ class StockClientTest {
     @Test
     void queriesCorrectBaseUrlAndParameters() {
         MockRestServiceServer mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();
-        mockRestServiceServer.expect(requestTo(MatchesPattern.matchesPattern(".+\\/api\\/v1\\/quote\\?symbol=.*&token=.*"))).andRespond(withSuccess());
+        mockRestServiceServer.expect(ExpectedCount.once(), requestTo(MatchesPattern.matchesPattern(".+\\/api\\/v1\\/quote\\?symbol=.*&token=.*"))).andRespond(withSuccess());
         stockClient.getStockInfo("SYMBOL");
         Assertions.assertDoesNotThrow(mockRestServiceServer::verify);
     }
