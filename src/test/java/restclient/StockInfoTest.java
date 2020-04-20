@@ -1,8 +1,11 @@
 package restclient;
 
+import com.mikaelfrancoeur.demostockticker.DemoStockTickerApplication;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest(classes = {DemoStockTickerApplication.class})
 class StockInfoTest {
 
     //TODO
