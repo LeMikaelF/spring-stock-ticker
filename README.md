@@ -6,12 +6,15 @@
 - Spring Boot (framework)
 - JavaFX (UI)
 - JavaFX-Weaver (Spring-FX bridge)
+- JUnit 5
+- Travis CI
+
+
 - REST API ([finnhub.io](https://finnhub.io/))
+- MockRestServiceServer
+- Asynchronous UI updates
+
 
 Demo application using Spring and a REST service to track stock prices.
 
 ![screenshot](img/Screenshot.png)
-
-# TODO
-- [ ] Save/load stock selection.
-- [ ] Make UI prettier
