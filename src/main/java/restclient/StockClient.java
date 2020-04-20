@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Component
@@ -33,18 +34,19 @@ public class StockClient {
         return restTemplateBuilder.build();
     }
 
-    public Optional<StockInfo> getStockInfo(String symbol) {
+    public Optional<@Valid StockInfo> getStockInfo(String symbol) {
         if (symbol.isEmpty()) {
             return Optional.empty();
         }
 
         try {
             return Optional.ofNullable(restTemplate.getForEntity(getStockUrl, StockResponse.class, symbol, key).getBody())
-                    .map(stockResponse -> new StockInfo(symbol, stockResponse));
-        } catch (RestClientException e) {
+                    .map(stockResponse -> new StockInfo(symbol, stockResponse.getC()));
+        } catch (RestClientException | IllegalArgumentException e) {
             logger.error("Exception in StockClient::getStock — {}", e.getMessage());
             return Optional.empty();
         }
+
     }
 
 }

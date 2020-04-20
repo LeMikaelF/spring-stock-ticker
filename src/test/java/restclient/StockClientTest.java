@@ -1,5 +1,6 @@
 package restclient;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mikaelfrancoeur.demostockticker.DemoStockTickerApplication;
 import org.hamcrest.text.MatchesPattern;
 import org.junit.jupiter.api.Assertions;
@@ -9,11 +10,13 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -29,6 +32,8 @@ class StockClientTest {
     private StockClient stockClient;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private MockRestServiceServer mockRestServiceServer;
 
@@ -59,4 +64,6 @@ class StockClientTest {
         stockClient.getStockInfo("SYMBOL");
         Assertions.assertDoesNotThrow(mockRestServiceServer::verify);
     }
+
+
 }
