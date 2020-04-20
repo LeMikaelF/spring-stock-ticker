@@ -20,7 +20,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @SpringBootTest(classes = {DemoStockTickerApplication.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@TestPropertySource(value = "classpath:test-keys.properties")
+@TestPropertySource(value = "classpath:keys.properties")
 class StockClientTest {
 
     @Autowired
