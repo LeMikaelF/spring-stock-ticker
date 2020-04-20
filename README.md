@@ -13,6 +13,5 @@ Demo application using Spring and a REST service to track stock prices.
 ![screenshot](img/Screenshot.png)
 
 # TODO
-- [ ] Add travis test runner
-- [ ] Save/load stock selection with JPA and SQLite.
+- [ ] Save/load stock selection.
 - [ ] Make UI prettier
