@@ -18,7 +18,3 @@
 Demo application using Spring and a REST service to track stock prices.
 
 ![screenshot](img/Screenshot.png)
-
-**TODO**
-
-- [ ] Convert unit tests to property-based testing
