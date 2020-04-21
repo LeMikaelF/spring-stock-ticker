@@ -11,8 +11,6 @@ import javafx.scene.layout.Pane;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
@@ -26,7 +24,6 @@ import java.util.ArrayList;
 public class UiController {
 
     private final StockClient stockClient;
-    private final Logger logger = LoggerFactory.getLogger(UiController.class);
     private final ObservableList<SingleStockController> singleStockControllers = FXCollections.observableList(new ArrayList<>());
     @FXML
     Pane vBoxOuter;
@@ -65,7 +62,6 @@ public class UiController {
     }
 
     public void updateStocks() {
-        logger.info(String.valueOf(singleStockControllers.size()));
         singleStockControllers.forEach(singleStockController -> {
             Task<Double> task = new Task<Double>() {
                 @Override

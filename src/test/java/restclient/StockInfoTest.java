@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(classes = {DemoStockTickerApplication.class})
 class StockInfoTest {
 
-    //TODO
     @Test
     void constructorThrowsOnNegativeCurrentPrice() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new StockInfo("ABCD", -123D));
@@ -28,7 +27,6 @@ class StockInfoTest {
     void constructorThrowsOnInfinityPrice() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new StockInfo("ABCD", Double.POSITIVE_INFINITY));
     }
-
 
     @Test
     void fieldsInitializeCorrectly() {

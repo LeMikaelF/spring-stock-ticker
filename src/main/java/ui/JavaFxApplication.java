@@ -16,7 +16,7 @@ public class JavaFxApplication extends Application {
     private ConfigurableApplicationContext applicationContext;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
         Scene scene = new Scene(fxWeaver.loadView(UiController.class));
         primaryStage.setScene(scene);
@@ -24,7 +24,7 @@ public class JavaFxApplication extends Application {
     }
 
     @Override
-    public void init() throws Exception {
+    public void init() {
         String[] args = getParameters().getRaw().toArray(new String[0]);
         this.applicationContext = new SpringApplicationBuilder()
                 .sources(DemoStockTickerApplication.class)
@@ -32,7 +32,7 @@ public class JavaFxApplication extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         this.applicationContext.close();
         Platform.exit();
     }

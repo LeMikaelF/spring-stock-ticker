@@ -10,13 +10,6 @@ public class StockInfo {
         invariants();
     }
 
-    public StockInfo(String symbol, StockResponse response) {
-        this.symbol = symbol;
-        this.current = response.getC();
-        invariants();
-    }
-
-
     private void invariants() {
         if (symbol.isEmpty() || current == null || current.isNaN() || current.isInfinite() || current < 0) {
             throw new IllegalArgumentException();

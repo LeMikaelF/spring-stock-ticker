@@ -1,30 +1,20 @@
 package ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 @Component
 @FxmlView("singlestock.fxml")
 @Scope("prototype")
 public class SingleStockController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Pane root;
@@ -35,24 +25,13 @@ public class SingleStockController {
     @FXML
     private Label labelPrice;
 
-    @FXML
-    private Button buttonRemove;
-
     private Pane parent;
     private Runnable onRemoveAction = () -> {};
 
     @FXML
-    void removeStock(MouseEvent event) {
+    void removeStock() {
         parent.getChildren().remove(root);
         onRemoveAction.run();
-    }
-
-    @FXML
-    void initialize() {
-        assert textFieldSymbol != null : "fx:id=\"textFieldSymbol\" was not injected: check your FXML file 'singlestock.fxml'.";
-        assert labelPrice != null : "fx:id=\"labelPrice\" was not injected: check your FXML file 'singlestock.fxml'.";
-        assert buttonRemove != null : "fx:id=\"iconRemove\" was not injected: check your FXML file 'singlestock.fxml'.";
-        System.out.println("In SingleStockController " + this.hashCode());
     }
 
     String getSymbol() {

@@ -1,6 +1,5 @@
 package restclient;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mikaelfrancoeur.demostockticker.DemoStockTickerApplication;
 import org.hamcrest.text.MatchesPattern;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.TestPropertySource;
@@ -32,8 +30,6 @@ class StockClientTest {
     @Autowired
     private RestTemplate restTemplate;
     @Autowired
-    private ObjectMapper objectMapper;
-    @Autowired
     private Environment environment;
 
 
@@ -53,7 +49,9 @@ class StockClientTest {
 
     @Test
     void returnsEmptyOptionalOnServerFailure() {
-        mockRestServiceServer.expect(ExpectedCount.once(), requestTo(MatchesPattern.matchesPattern(".*"))).andRespond(withServerError());
+        mockRestServiceServer.expect(ExpectedCount.once(),
+                requestTo(MatchesPattern.matchesPattern(".*")))
+                .andRespond(withServerError());
         Optional<StockInfo> stockInfo = stockClient.getStockInfo("SYMBOL");
         Assertions.assertEquals(Optional.empty(), stockInfo);
         Assertions.assertDoesNotThrow(() -> mockRestServiceServer.verify());
@@ -62,7 +60,9 @@ class StockClientTest {
     @Test
     void queriesCorrectBaseUrlAndParameters() {
         MockRestServiceServer mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();
-        mockRestServiceServer.expect(ExpectedCount.once(), requestTo(MatchesPattern.matchesPattern(".+\\/api\\/v1\\/quote\\?symbol=.*&token=.*"))).andRespond(withSuccess());
+        mockRestServiceServer.expect(ExpectedCount.once(),
+                requestTo(MatchesPattern.matchesPattern(".+\\/api\\/v1\\/quote\\?symbol=.*&token=.*")))
+                .andRespond(withSuccess());
         stockClient.getStockInfo("SYMBOL");
         Assertions.assertDoesNotThrow(mockRestServiceServer::verify);
     }
@@ -70,7 +70,9 @@ class StockClientTest {
     @Test
     void insertsCorrectSymbolIntoRequestUrl() {
         MockRestServiceServer mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();
-        mockRestServiceServer.expect(ExpectedCount.once(), requestTo(MatchesPattern.matchesPattern(".*symbol=SYMBOL.*"))).andRespond(withSuccess());
+        mockRestServiceServer.expect(ExpectedCount.once(),
+                requestTo(MatchesPattern.matchesPattern(".*symbol=SYMBOL.*")))
+                .andRespond(withSuccess());
         stockClient.getStockInfo("SYMBOL");
         Assertions.assertDoesNotThrow(mockRestServiceServer::verify);
     }
@@ -79,7 +81,9 @@ class StockClientTest {
     void insertsCorrectKeyPropertyIntoRequestUrl() {
         MockRestServiceServer mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();
         String pattern = ".*token=" + environment.getProperty("stockapi.key");
-        mockRestServiceServer.expect(ExpectedCount.once(), requestTo(MatchesPattern.matchesPattern(pattern))).andRespond(withSuccess());
+        mockRestServiceServer.expect(ExpectedCount.once(),
+                requestTo(MatchesPattern.matchesPattern(pattern))).
+                andRespond(withSuccess());
         stockClient.getStockInfo("SYMBOL");
         Assertions.assertDoesNotThrow(mockRestServiceServer::verify);
     }
