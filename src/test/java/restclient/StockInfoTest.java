@@ -19,6 +19,16 @@ class StockInfoTest {
     }
 
     @Test
+    void constructorThrowsOnNullPrice() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new StockInfo("ABCD", null));
+    }
+
+    @Test
+    void constructorThrowsOnNullSymbol() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new StockInfo(null, 123D));
+    }
+
+    @Test
     void constructorThrowsOnNanPrince() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new StockInfo("ABCD", Double.NaN));
     }

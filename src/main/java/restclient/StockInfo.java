@@ -11,7 +11,7 @@ public class StockInfo {
     }
 
     private void invariants() {
-        if (symbol.isEmpty() || current == null || current.isNaN() || current.isInfinite() || current < 0) {
+        if (symbol == null || symbol.isEmpty() || current == null || current.isNaN() || current.isInfinite() || current < 0) {
             throw new IllegalArgumentException();
         }
     }
