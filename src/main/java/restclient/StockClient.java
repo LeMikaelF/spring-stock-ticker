@@ -26,7 +26,6 @@ public class StockClient {
 
     @Autowired
     public StockClient() {
-        logger.info(this.key);
     }
 
     @Bean
