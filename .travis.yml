@@ -6,7 +6,7 @@ addons:
     packages:
       - openjfx
 
-script: mvn test
+script: mvn install
 
 notifications:
   email: false
