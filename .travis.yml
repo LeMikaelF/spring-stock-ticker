@@ -5,20 +5,24 @@ addons:
   apt:
     packages:
       - openjfx
+cache:
+  directories:
+    - $HOME/.m2
 
 stages:
   - test
-    if branch != release AND !(tag IS present)
-  - install
+    if: branch != release AND !(tag IS present)
+  - compile
+    if: branch != release AND !(tag IS present)
   - deploy
-    if branch = release
+    if: branch = release
 
 jobs:
   include:
     - stage: test
       name: "Unit tests"
       script: mvn test
-    - stage: install
+    - stage: compile
       name: "Compilation"
       script: mvn install -DskipTests
     - stage: deploy
@@ -35,8 +39,6 @@ jobs:
           repo: LeMikaelF/spring-stock-ticker
           #tags: true
           branch: release
-      after_deploy:
-        - mvn clean
       notifications:
         email: true
 
