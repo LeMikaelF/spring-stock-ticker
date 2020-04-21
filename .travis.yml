@@ -8,13 +8,19 @@ addons:
 cache:
   directories:
     - $HOME/.m2
+notifications:
+  email:
+    recipients:
+    - secure: T/+Hc1ibwbaZeyanPlC676niP7AgfKFZTXYnl23Zq1QqszAKZmVlarE07du16BWcccnR5bAat7iP47bC8UyXd869clPOa8Fg0yBIR0hea0IQLvakRPTWAZNnUa3Uhhl5B7qhHccHhLOCZfBS/LCKT8Hb8lmqBPdaVR3l/LuunQmOhN/yv1GEzUiY4v2MZ8E2hbgWtLQGmmRhUNlTxMchlTCGosOdjoDLweXVBj1RlH+XawLTxD2YR5TNwXXaY/l3xxT2ug5LrSJUxQx4ZGF783xUPIY9yv7EAtaw0HKx7Tmafoq181mNZKjK1+C4vYem++t6SI5ZjVMOlqWWC7dpkjbJ09184VOHRmJbf8sbdFh6wQzKyXMDK682eTKW8I/PwSHBVKpTMcsp5r6ROhZxtoirUMf1eLgxIrRwi9ufwdpDDKG6gUIZt632eUN+BrHlJQQ6PqveFUwXpSLgX13XrjryaGUL5PXn2AWwgaji/qBIdDKZfO24iUnYAyrqjXitgj5BXfx2+g18wd3aIlsEu6p+M1gSiqijPe6OBdswCixtlcBrqiT8+3SSr3Ll6Cj41XYkH0Oc5DOKzNsdy/lk2Oc3KbZYbU0y9RUzDsjhM59kkSyMHyKMgCbcsJ7GVAPyjs51hRXcTHabuaZbg4t5X2A6QWzArGXG4428w/ri9qo=
+    if: branch = release
+
 
 stages:
-  - test
+  - name: test
     if: branch != release AND !(tag IS present)
-  - compile
+  - name: compile
     if: branch != release AND !(tag IS present)
-  - deploy
+  - name: deploy
     if: branch = release
 
 jobs:
@@ -32,13 +38,11 @@ jobs:
         provider: releases
         api_key:
           secure: ciWV0Uc+W0UaMyqT0xfbEAdakK684mJ9yhTB21mPfkoLO7Va3hYwb1VRrsMtlw2R6DE6URysfgWTbqqQfxTKWwJ0plC3XGGjHamN4Y51QZ64uxtmK70Ar+PLnonKfJyiBc6SsPD7f3bo6s6Xjk8mYA1ndPTtFx1v/87Wf17DJJArF5tSJ45V3mHGQhQb25g3/tAlJBOBhIIsuxvdgaeTUDFw0pXnssLhZukK/ZIXwaA9bnsoVJGtKAt/5XA0vUngd0Cro6FZo52crmstXlgceC1JdQcegIl8/PHlhWr3vHbeZ0B3jfxdabKK1kU33HEJgyyU6CGF7kmyr3iEY3iA1zMgxvPq3ZJSafGuxiKG/+13icSevbVs2QfBUip68wo18obKTg1PC5pCcROdqU6EvbqiUhx5OcSPuuYrdxyCaGsdUh6NqqHqLsmZEDmXRGKW9efCPMlEren5KFTLqA8+twysFXCPcyp1izB5KdUXhjSW3l4ih+cAhlwUJbCxPgqbeUWhipfGZnse3kaWmMzrSJwUOodnWKzeMTxlCqT0KaGnGC4ArNJORIiRWmsFZm9qVFbW1ACkMbtGzCDboRVRoKGBVcYgMTE837LIMz3X38eGVBC/LXUWzUdz/LQd2i+Aw2Q5xJ5R+AalEc15DgMVWSx1w/Y0U+2VBB9GKbsEbWE=
-        skip_cleanup: true
+        cleanup: false
         file_glob: true
         file: target/demo-stock-ticker*.jar
         on:
           repo: LeMikaelF/spring-stock-ticker
-          #tags: true
           branch: release
-      notifications:
-        email: true
+
 
