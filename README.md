@@ -18,6 +18,3 @@
 Demo application using Spring and a REST service to track stock prices.
 
 ![screenshot](img/Screenshot.png)
-
-**TODO**
-- CI: package jar and release on RELEASE tag.
