@@ -33,14 +33,13 @@ jobs:
       script: mvn install -DskipTests
     - stage: deploy
       name: "Deployment to GitHub Releases"
-      script: echo "Deploying to GitHub releases ..."
-    - script: mvn install
+      script: mvn install
       deploy:
         provider: releases
         api_key:
           secure: ciWV0Uc+W0UaMyqT0xfbEAdakK684mJ9yhTB21mPfkoLO7Va3hYwb1VRrsMtlw2R6DE6URysfgWTbqqQfxTKWwJ0plC3XGGjHamN4Y51QZ64uxtmK70Ar+PLnonKfJyiBc6SsPD7f3bo6s6Xjk8mYA1ndPTtFx1v/87Wf17DJJArF5tSJ45V3mHGQhQb25g3/tAlJBOBhIIsuxvdgaeTUDFw0pXnssLhZukK/ZIXwaA9bnsoVJGtKAt/5XA0vUngd0Cro6FZo52crmstXlgceC1JdQcegIl8/PHlhWr3vHbeZ0B3jfxdabKK1kU33HEJgyyU6CGF7kmyr3iEY3iA1zMgxvPq3ZJSafGuxiKG/+13icSevbVs2QfBUip68wo18obKTg1PC5pCcROdqU6EvbqiUhx5OcSPuuYrdxyCaGsdUh6NqqHqLsmZEDmXRGKW9efCPMlEren5KFTLqA8+twysFXCPcyp1izB5KdUXhjSW3l4ih+cAhlwUJbCxPgqbeUWhipfGZnse3kaWmMzrSJwUOodnWKzeMTxlCqT0KaGnGC4ArNJORIiRWmsFZm9qVFbW1ACkMbtGzCDboRVRoKGBVcYgMTE837LIMz3X38eGVBC/LXUWzUdz/LQd2i+Aw2Q5xJ5R+AalEc15DgMVWSx1w/Y0U+2VBB9GKbsEbWE=
         file_glob: true
-        file: target/*.jar
+        file: target/demo-stock-ticker-1.0.0.jar
         on:
           repo: LeMikaelF/spring-stock-ticker
           branch: release
